@@ -5,31 +5,34 @@ import org.junit.jupiter.api.Test;
 public class TestPractice extends TestBase {
     @Test
     void fillForm() {
+
         //Объявление переменных
-        String userName = "Ivan",
-                lastName = "Ivanov",
-                userEmail = "ivanIvanovqaquru@mail.com",
-                gender = "Male",
-                userNumber = "9001234567",
+        String firstName = faker.name().firstName(),
+                lastName = faker.name().lastName(),
+                userEmail = faker.internet().emailAddress(),
+                gender = testData.randomItem(testData.gender),
+                userNumber = faker.phoneNumber().subscriberNumber(10),
                 subjectFirst = "h",
                 subjectFirstFull = "History",
                 subjectSecond = "m",
                 subjectSecondFull = "Maths",
-                hobby = "Music",
+                hobby = testData.randomItem(testData.hobbies),
                 fileName = "doc.txt",
-                address = "Lenina st, house 1",
-                state = "Rajasthan",
-                city = "Jaipur",
-                dataOfBirth = "01",
-                monthOfBirth = "May",
-                yearOfBirth = "1996";
+                address = faker.address().streetAddress(),
+                state = testData.randomItem(testData.state),
+                city = testData.getСity(state),
+                birthday = sdf.format(faker.date().birthday()),
+                birthdayArr[] = birthday.split("\\."),
+                dataOfBirth = birthdayArr[1],
+                monthOfBirth = testData.switchToMonth(birthdayArr[1]),
+                yearOfBirth = birthdayArr[2];
 
 
         //Настройка окружения
         registrationPage.openPage()
 
                 //Заполнение формы
-                .setFirstName(userName)
+                .setFirstName(firstName)
                 .setLastName(lastName)
                 .setEmail(userEmail)
                 .setGender(gender)
@@ -45,7 +48,7 @@ public class TestPractice extends TestBase {
 
                 //Проверка результата
                 .verifyResultsModalAppears()
-                .verifyResult("Student Name", userName + " " + lastName)
+                .verifyResult("Student Name", firstName + " " + lastName)
                 .verifyResult("Student Email", userEmail)
                 .verifyResult("Gender", gender)
                 .verifyResult("Mobile", userNumber)
