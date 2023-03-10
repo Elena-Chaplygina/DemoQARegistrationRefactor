@@ -34,8 +34,6 @@ public class RegistrationPage {
             btnSubmit = $("#submit"),
             btnClose =         $("#closeLargeModal");
 
-
-
     public RegistrationPage openPage() {
         open(URL);
         executeJavaScript("$('footer').remove()");
